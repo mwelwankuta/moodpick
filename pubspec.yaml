@@ -1,16 +1,15 @@
 name: moodpick
-description: "A new Flutter project."
-publish_to: 'none'
+description: "Hello world but it's more than just that"
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=3.4.1 <4.0.0'
+  sdk: ">=3.4.1 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: ^2.0.5 
-  
+  flutter_svg: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +20,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.svg
+    - assets/font/inter.ttf
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/font/inter.ttf
+          style: italic

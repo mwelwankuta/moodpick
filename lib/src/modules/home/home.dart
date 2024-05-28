@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:moodpick/src/modules/home/classes/mood.dart';
 import 'package:moodpick/src/modules/home/widgets/mood_post.dart';
 
 class HomeScreen extends StatelessWidget {
