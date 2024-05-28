@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:moodpick/src/modules/authentication/landing.dart';
 import 'package:moodpick/src/modules/home/home.dart';
 import 'package:moodpick/src/modules/home/widgets/app_bar.dart';

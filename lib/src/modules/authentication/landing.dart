@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -37,34 +38,18 @@ class LandingScreen extends StatelessWidget {
           ),
 
           // Login Button
-          InkWell(
-            onTap: () {
-              // TODO: login with google
+          SupaSocialsAuth(
+            socialProviders: const [
+              OAuthProvider.google,
+            ],
+            colored: true,
+            redirectUrl:
+                'https://qaytoeaupdapzuyuzark.supabase.co/auth/v1/callback',
+            onSuccess: (Session response) {
+              print(response.user.email);
             },
-            child: SizedBox(
-              width: double.infinity,
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(30, 13, 30, 13),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  color: const Color(0xFCFCFCFF),
-                  border: Border.all(
-                    color: const Color(0xDDDDDDDD),
-                    width: 1.0,
-                  ),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Login with Google",
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ),
-            ),
-          ),
+            onError: (error) {},
+          )
         ],
       ),
     );
