@@ -56,6 +56,7 @@ class LandingScreen extends StatelessWidget {
                       'https://qaytoeaupdapzuyuzark.supabase.co/auth/v1/callback',
                   onSuccess: (Session response) async {
                     var email = response.user.email;
+
                     if (email == null) {
                       return;
                     }

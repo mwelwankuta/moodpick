@@ -25,6 +25,11 @@ class HomeScreen extends StatelessWidget {
             scrollDirection: Axis.vertical,
             children: const [
               MoodPostWidget(),
+              MoodPostWidget(),
+              MoodPostWidget(),
+              MoodPostWidget(),
+              MoodPostWidget(),
+              MoodPostWidget(),
             ],
           ),
           floatingActionButton: const FloatingActionButtonWidget());
