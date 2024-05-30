@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodpick/src/modules/home/widgets/upload_modal.dart';
 
 class FloatingActionButtonWidget extends StatefulWidget {
   const FloatingActionButtonWidget({super.key});
@@ -48,15 +49,25 @@ class _FloatingActionButtonWidgetState
               ],
             ),
           ),
-          Container(
-            decoration: const BoxDecoration(
-              color: Color.fromRGBO(235, 235, 235, 100),
-              borderRadius: BorderRadius.all(Radius.circular(40)),
+          InkWell(
+            onTap: () {
+              showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return const UploadModal();
+                  });
+            },
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color.fromRGBO(235, 235, 235, 100),
+                borderRadius: BorderRadius.all(Radius.circular(40)),
+              ),
+              height: 50,
+              width: 50,
+              child: const Icon(Icons.add),
             ),
-            height: 50,
-            width: 50,
-            child: const Icon(Icons.camera_alt_outlined),
-          ),
+          )
         ],
       ),
     );

@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
 
     return Consumer<AuthenticationProvider>(builder: (context, provider, _) {
       return Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           appBar: const PreferredSize(
               preferredSize: Size.fromHeight(100.0),
