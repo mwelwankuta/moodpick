@@ -1,37 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:moodpick/src/modules/authentication/landing.dart';
 import 'package:moodpick/src/modules/home/home.dart';
-import 'package:moodpick/src/modules/home/widgets/app_bar.dart';
-import 'package:moodpick/src/modules/home/widgets/fab.dart';
+import 'package:moodpick/src/providers/state.dart';
+import 'package:provider/provider.dart';
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
-  bool isAuthenticated = false;
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    if (!isAuthenticated) {
-      return const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          backgroundColor: Colors.white,
-          body: LandingScreen(),
-        ),
-      );
-    }
+  State<MyApp> createState() => _MyAppState();
+}
 
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: PreferredSize(
-              preferredSize: Size.fromHeight(100.0),
-              child: SafeArea(
-                  minimum: EdgeInsets.fromLTRB(15, 40, 15, 0),
-                  child: AppBarWidget())),
-          body: HomeScreen(),
-          floatingActionButton: FloatingActionButtonWidget()),
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => AuthenticationProvider(), // Provide the state object
+      child: MaterialApp(
+        home: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: "/landing",
+          routes: {
+            "/home": (context) => const HomeScreen(),
+            "/landing": (context) => const LandingScreen(),
+          },
+        ),
+      ),
     );
   }
 }
