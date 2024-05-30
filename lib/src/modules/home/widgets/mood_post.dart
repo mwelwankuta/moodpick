@@ -12,7 +12,7 @@ class MoodPostWidget extends StatelessWidget {
         AspectRatio(
           aspectRatio: 4 / 5,
           child: Image.network(
-            "https://im.rediff.com/getahead/2023/may/05models3.jpg?w=670&h=900",
+            "https://i.pinimg.com/originals/58/5a/3c/585a3cbe9743b5f0b7f848ee2ceee930.jpg",
             height: 800,
             width: double.infinity,
             fit: BoxFit.contain,
