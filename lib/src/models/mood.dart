@@ -1,4 +1,4 @@
-class Mood {
+class MoodModel {
   final String id;
   final String imageUrl;
   final String feeling;
@@ -6,7 +6,7 @@ class Mood {
   final String userImage;
   final String email;
 
-  Mood({
+  MoodModel({
     required this.imageUrl,
     required this.feeling,
     required this.userId,
@@ -16,7 +16,7 @@ class Mood {
   });
 
   fromJson(Map<String, dynamic> json) {
-    return Mood(
+    return MoodModel(
       id: json['id'],
       imageUrl: json['image'],
       feeling: json['feeling'],

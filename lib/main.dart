@@ -21,3 +21,5 @@ Future<void> main() async {
 
   runApp(MyApp());
 }
+
+final supabase = Supabase.instance.client;

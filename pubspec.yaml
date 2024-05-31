@@ -14,9 +14,11 @@ dependencies:
   flutter_svg: ^2.0.5
   get: ^4.6.6
   google_sign_in: ^6.2.1
+  image_picker: ^1.1.1
   provider: ^6.1.2
   supabase_auth_ui: ^0.4.4
   supabase_flutter: ^2.5.3
+  uuid: ^4.4.0
 
 dev_dependencies:
   flutter_test:
