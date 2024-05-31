@@ -13,18 +13,12 @@ class _FloatingActionButtonWidgetState
     extends State<FloatingActionButtonWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // push the container to the bottom of the screen
-      padding: const EdgeInsets.fromLTRB(30, 20, 20, 20),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 50,
-            width: 50,
-            child: Icon(Icons.search),
-          ),
           InkWell(
             onTap: () {
               showModalBottomSheet<void>(

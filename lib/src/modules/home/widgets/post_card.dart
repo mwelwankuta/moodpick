@@ -1,40 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moodpick/main.dart';
-
-Future<int> likePost(int post, int postLikes) async {
-  var creator = supabase.auth.currentUser!.id;
-  var creatorEmail = supabase.auth.currentUser!.email;
-
-  var likes = await supabase
-      .from('likes')
-      .select('creator, email')
-      .eq('id', post)
-      .eq('creator', creator);
-
-  // when user has not liked the post
-  if (likes.isEmpty) {
-    postLikes += 1;
-    // update posts
-    await supabase.from('posts').update({'likes': postLikes}).eq('id', post);
-
-    // update likes
-    await supabase.from('likes').insert({
-      'post_id': post,
-      'creator': creator,
-      'email': creatorEmail,
-    });
-    return postLikes;
-  }
-
-  postLikes -= 1;
-  // update posts
-  await supabase.from('posts').update({'likes': postLikes}).eq('id', post);
-
-  // update likes
-  await supabase.from('likes').delete().eq('id', likes[0]['id']);
-
-  return postLikes;
-}
+import 'package:moodpick/src/api/likes.dart';
 
 class MoodPostWidget extends StatefulWidget {
   final int id;
@@ -64,6 +29,13 @@ class _MoodPostWidgetState extends State<MoodPostWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            widget.creator,
+            style: const TextStyle(fontWeight: FontWeight.w100),
+          ),
+        ),
         AspectRatio(
           aspectRatio: 4 / 5,
           child: Image.network(

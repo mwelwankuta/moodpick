@@ -1,43 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:moodpick/main.dart';
-import 'package:uuid/uuid.dart';
+import 'package:moodpick/src/api/posts.dart';
 import 'package:moodpick/src/modules/home/widgets/upload_modal/pick_image_button.dart';
 import 'package:moodpick/src/providers/state.dart';
 import 'package:provider/provider.dart';
-
-var uuid = Uuid();
-
-Future<String> uploadImage(file) async {
-  final image = File(file);
-  var v4 = uuid.v4();
-
-  final imageBytes = image.readAsBytesSync();
-
-  final userId = supabase.auth.currentUser!.id;
-  final imagePath = '/$userId/${v4}.${image.path.split('.').last}';
-
-  await supabase.storage.from("photos").uploadBinary(imagePath, imageBytes);
-
-  final imageUrl = supabase.storage.from("photos").getPublicUrl(imagePath);
-  return imageUrl;
-}
-
-Future<void> createPost(
-  creator,
-  image,
-  description,
-) async {
-  final imageUrl = await uploadImage(image);
-  await supabase.from('posts').insert({
-    'creator': creator,
-    'image': imageUrl,
-    'description': description,
-    'likes': 0
-  });
-}
 
 class UploadModal extends StatefulWidget {
   const UploadModal({super.key});
@@ -76,7 +42,10 @@ class _UploadModalState extends State<UploadModal> {
                 children: [
                   PickImageButton(imgFile, () async {
                     final XFile? img = await picker.pickImage(
-                        source: ImageSource.gallery, imageQuality: 70);
+                        source: ImageSource.gallery,
+                        imageQuality: 60,
+                        maxHeight: 800,
+                        maxWidth: double.infinity);
 
                     if (img == null) {
                       return;

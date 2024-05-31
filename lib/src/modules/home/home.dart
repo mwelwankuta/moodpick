@@ -21,20 +21,23 @@ class HomeScreen extends StatelessWidget {
 
     return Consumer<AuthenticationProvider>(builder: (context, provider, _) {
       return Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.white,
-          appBar: const PreferredSize(
-              preferredSize: Size.fromHeight(100.0),
-              child: SafeArea(
-                  minimum: EdgeInsets.fromLTRB(15, 40, 15, 0),
-                  child: AppBarWidget())),
-          body: FutureBuilder<List<Map<String, dynamic>>>(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
+        appBar: const PreferredSize(
+            preferredSize: Size.fromHeight(100.0),
+            child: SafeArea(
+                minimum: EdgeInsets.fromLTRB(15, 40, 15, 0),
+                child: AppBarWidget())),
+        floatingActionButton: const FloatingActionButtonWidget(),
+        body: RefreshIndicator(
+          onRefresh: () {
+            return fetchPosts();
+          },
+          child: FutureBuilder<List<Map<String, dynamic>>>(
             future: fetchPosts(),
             initialData: const [],
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                print(snapshot.data!.isEmpty);
-
                 if (snapshot.data!.isEmpty == true) {
                   return const Center(
                     child: Text('No posts yet'),
@@ -43,7 +46,7 @@ class HomeScreen extends StatelessWidget {
 
                 List<Widget> list = [];
 
-                for (var i = 0; i < snapshot.data!.length; i++) {
+                for (var i = snapshot.data!.length - 1; i > 0; i--) {
                   var currentPost = snapshot.data![i];
 
                   list.add(MoodPostWidget(
@@ -73,7 +76,8 @@ class HomeScreen extends StatelessWidget {
               ));
             },
           ),
-          floatingActionButton: const FloatingActionButtonWidget());
+        ),
+      );
     });
   }
 }

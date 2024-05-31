@@ -5,6 +5,8 @@ import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 import 'src/app.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Supabase.initialize(
     url: "https://qaytoeaupdapzuyuzark.supabase.co",
     anonKey:
