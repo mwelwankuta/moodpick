@@ -13,7 +13,6 @@ class MoodModel {
     required this.likes,
   });
 
-  // to json method factory
   factory MoodModel.fromJson(Map<String, dynamic> json) {
     if (json.isEmpty) throw Exception("No data found in the json object");
 

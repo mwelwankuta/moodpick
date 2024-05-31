@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:moodpick/main.dart';
 import 'package:moodpick/src/api/likes.dart';
+import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 
 class MoodPostWidget extends StatefulWidget {
   final int id;
@@ -26,6 +28,19 @@ class _MoodPostWidgetState extends State<MoodPostWidget> {
   Widget build(BuildContext context) {
     int currentLikes = widget.likes;
 
+    final likes = supabase.channel('public:posts').onPostgresChanges(
+        event: PostgresChangeEvent.update,
+        callback: (payload) {
+          print(payload.newRecord);
+
+          final updatedPost = payload.newRecord;
+          if (updatedPost['id'] == widget.id) {
+            setState(() {
+              currentLikes = updatedPost['likes'];
+            });
+          }
+        });
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -48,10 +63,7 @@ class _MoodPostWidgetState extends State<MoodPostWidget> {
         Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           IconButton(
             onPressed: () async {
-              int newLikes = await likePost(widget.id, currentLikes);
-              setState(() {
-                currentLikes = newLikes;
-              });
+              unlimitedHeart(widget.id, currentLikes);
             },
             icon: const Icon(
               Icons.favorite_border,

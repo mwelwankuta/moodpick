@@ -12,7 +12,6 @@ Future<String> uploadImage(file) async {
 
   final userId = supabase.auth.currentUser!.id;
   final imagePath = '/$userId/${v4}.${image.path.split('.').last}';
-  print(imagePath);
 
   await supabase.storage.from("photos").uploadBinary(imagePath, imageBytes);
 

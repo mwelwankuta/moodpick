@@ -54,10 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
         floatingActionButton: const FloatingActionButtonWidget(),
         body: RefreshIndicator(
             onRefresh: () async {
-              print(posts.length);
               await homeScreenPosts();
-              print('Refreshed');
-              print(posts.length);
             },
             child: isLoading
                 ? const Center(
