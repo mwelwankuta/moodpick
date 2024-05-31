@@ -1,38 +1,27 @@
 class MoodModel {
-  final String id;
-  final String imageUrl;
-  final String feeling;
-  final String userId;
-  final String userImage;
-  final String email;
+  final int id;
+  final String image;
+  final String description;
+  final String creator;
+  final int likes;
 
   MoodModel({
-    required this.imageUrl,
-    required this.feeling,
-    required this.userId,
-    required this.userImage,
+    required this.image,
+    required this.description,
+    required this.creator,
     required this.id,
-    required this.email,
+    required this.likes,
   });
 
-  fromJson(Map<String, dynamic> json) {
-    return MoodModel(
-      id: json['id'],
-      imageUrl: json['image'],
-      feeling: json['feeling'],
-      userId: json['userId'],
-      userImage: json['userImage'],
-      email: json['email'],
-    );
-  }
+  // to json method factory
+  factory MoodModel.fromJson(Map<String, dynamic> json) {
+    if (json.isEmpty) throw Exception("No data found in the json object");
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'image': imageUrl,
-      'feeling': feeling,
-      'userId': userId,
-      'userImage': userImage,
-    };
+    return MoodModel(
+        image: json['image'],
+        description: json['description'],
+        creator: json['creator'],
+        id: json['id'],
+        likes: json['likes']);
   }
 }

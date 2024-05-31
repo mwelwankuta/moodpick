@@ -15,15 +15,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Map<String, dynamic>> posts = [];
+  List<MoodModel> posts = [];
+  bool isLoading = true;
 
   @override
-  Future<void> initState() async {
-    var data = await fetchPosts();
-    setState(() {
-      print(data);
-    });
+  void initState() {
     super.initState();
+
+    homeScreenPosts();
+  }
+
+  homeScreenPosts() async {
+    var fetchedPosts = await fetchPosts();
+
+    setState(() {
+      posts = [];
+      for (var i = fetchedPosts.length - 1; i > 0; i--) {
+        var post = fetchedPosts[i];
+        posts.add(MoodModel.fromJson(post));
+      }
+      isLoading = false;
+    });
   }
 
   @override
@@ -41,54 +53,31 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: AppBarWidget())),
         floatingActionButton: const FloatingActionButtonWidget(),
         body: RefreshIndicator(
-          onRefresh: () async {
-            // var posts = await fetchPosts();
-          },
-          child: FutureBuilder<List<Map<String, dynamic>>>(
-            future: fetchPosts(),
-            initialData: const [],
-            builder: (BuildContext context,
-                AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data!.isEmpty == true) {
-                  return const Center(
-                    child: Text('No posts yet'),
-                  );
-                }
-
-                List<Widget> list = [];
-
-                for (var i = snapshot.data!.length - 1; i > 0; i--) {
-                  var currentPost = snapshot.data![i];
-
-                  list.add(MoodPostWidget(
-                    id: currentPost['id'],
-                    creator: currentPost['creator'],
-                    description: currentPost['description'],
-                    likes: currentPost['likes'],
-                    imageUrl: currentPost['image'],
-                  ));
-                }
-
-                return PageView(
-                  controller: controller,
-                  scrollDirection: Axis.vertical,
-                  children: list,
-                );
-
-                // has data
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-
-              // By default, show a loading spinner.
-              return const Center(
-                  child: CircularProgressIndicator(
-                color: Colors.black,
-              ));
+            onRefresh: () async {
+              print(posts.length);
+              await homeScreenPosts();
+              print('Refreshed');
+              print(posts.length);
             },
-          ),
-        ),
+            child: isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.black,
+                    ),
+                  )
+                : PageView(
+                    controller: controller,
+                    scrollDirection: Axis.vertical,
+                    children: posts.map((post) {
+                      return MoodPostWidget(
+                        creator: post.creator,
+                        description: post.description,
+                        imageUrl: post.image,
+                        id: post.id,
+                        likes: post.likes,
+                      );
+                    }).toList(),
+                  )),
       );
     });
   }
