@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:moodpick/main.dart';
+import 'package:moodpick/src/api/posts.dart';
+import 'package:moodpick/src/models/mood.dart';
 import 'package:moodpick/src/modules/home/widgets/app_bar/app_bar.dart';
 import 'package:moodpick/src/modules/home/widgets/fab.dart';
 import 'package:moodpick/src/modules/home/widgets/post_card.dart';
 import 'package:moodpick/src/providers/state.dart';
 import 'package:provider/provider.dart';
 
-Future<List<Map<String, dynamic>>> fetchPosts() async {
-  final data = await supabase.from('posts').select('*');
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
-  return data;
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class _HomeScreenState extends State<HomeScreen> {
+  List<Map<String, dynamic>> posts = [];
+
+  @override
+  Future<void> initState() async {
+    var data = await fetchPosts();
+    setState(() {
+      print(data);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +41,14 @@ class HomeScreen extends StatelessWidget {
                 child: AppBarWidget())),
         floatingActionButton: const FloatingActionButtonWidget(),
         body: RefreshIndicator(
-          onRefresh: () {
-            return fetchPosts();
+          onRefresh: () async {
+            // var posts = await fetchPosts();
           },
           child: FutureBuilder<List<Map<String, dynamic>>>(
             future: fetchPosts(),
             initialData: const [],
-            builder: (context, snapshot) {
+            builder: (BuildContext context,
+                AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data!.isEmpty == true) {
                   return const Center(

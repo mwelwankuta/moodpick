@@ -43,7 +43,7 @@ class _UploadModalState extends State<UploadModal> {
                   PickImageButton(imgFile, () async {
                     final XFile? img = await picker.pickImage(
                         source: ImageSource.gallery,
-                        imageQuality: 60,
+                        imageQuality: 70,
                         maxHeight: 800,
                         maxWidth: double.infinity);
 

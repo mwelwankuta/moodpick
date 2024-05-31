@@ -6,9 +6,6 @@ Future<int> likePost(int post, int postLikes) async {
 
   var likes = await supabase.from('likes').select('id').eq('id', post);
 
-  print(likes);
-  print('likes');
-
   // when user has not liked the post
   if (likes.isEmpty) {
     int likesAfterLike = postLikes + 1;
