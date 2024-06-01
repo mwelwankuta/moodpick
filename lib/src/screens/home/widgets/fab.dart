@@ -28,19 +28,25 @@ class _FloatingActionButtonWidgetState
                 });
           },
           child: Container(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+            padding: const EdgeInsets.fromLTRB(10, 10, 20, 10),
             decoration: const BoxDecoration(
               color: Color.fromRGBO(235, 235, 235, 100),
               borderRadius: BorderRadius.all(Radius.circular(40)),
             ),
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(235, 235, 235, 100),
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-              ),
-              height: 50,
-              width: 50,
-              child: const Icon(Icons.add),
+            child: Row(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Color.fromRGBO(235, 235, 235, 100),
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                  ),
+                  height: 50,
+                  width: 50,
+                  child: const Icon(Icons.add),
+                ),
+                const SizedBox(width: 10),
+                const Text("Post", style: TextStyle()),
+              ],
             ),
           ),
         )

@@ -13,26 +13,26 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(5, 5, 0, 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          InkWell(
-            onTap: () {
+          SvgPicture.asset(
+            'assets/logo.svg',
+            semanticsLabel: 'App Icon',
+            height: 28,
+            width: 40,
+          ),
+          IconButton(
+            icon: const Icon(Icons.person_2_outlined),
+            onPressed: () {
               showModalBottomSheet<void>(
                   context: context,
                   builder: (BuildContext context) {
                     return UserModal();
                   });
             },
-            child: const Icon(Icons.settings_outlined),
-          ),
-          SvgPicture.asset(
-            'assets/logo.svg',
-            semanticsLabel: 'App Logo',
-            height: 28,
-            width: 40,
           ),
         ],
       ),

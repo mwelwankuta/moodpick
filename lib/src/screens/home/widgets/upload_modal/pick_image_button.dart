@@ -41,7 +41,7 @@ class PickImageButton extends StatelessWidget {
                 ),
                 const Text(
                   'Pick Image',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w100),
+                  style: TextStyle(fontSize: 16),
                 ),
               ],
             ),

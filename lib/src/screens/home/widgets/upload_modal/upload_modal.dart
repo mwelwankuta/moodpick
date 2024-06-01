@@ -31,7 +31,7 @@ class _UploadModalState extends State<UploadModal> {
         borderRadius: BorderRadius.all(Radius.circular(30)),
         color: Colors.white,
       ),
-      height: 800,
+      height: 700,
       // fill height of the screen
       child: SingleChildScrollView(
         child: SizedBox(
