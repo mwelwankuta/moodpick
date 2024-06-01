@@ -14,16 +14,14 @@ class UploadModal extends StatefulWidget {
 }
 
 class _UploadModalState extends State<UploadModal> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   String imgFile = "";
-  String? description = "";
   bool _isLoading = false;
   final ImagePicker picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
     final _provider = Provider.of<AuthenticationProvider>(context);
+    final TextEditingController captionController = TextEditingController();
 
     return Container(
       padding: const EdgeInsets.all(30),
@@ -32,74 +30,65 @@ class _UploadModalState extends State<UploadModal> {
         color: Colors.white,
       ),
       height: 700,
-      // fill height of the screen
       child: SingleChildScrollView(
         child: SizedBox(
             width: double.infinity,
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  PickImageButton(imgFile, () async {
-                    final XFile? img = await picker.pickImage(
-                      source: ImageSource.gallery,
-                      imageQuality: 85,
-                    );
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                PickImageButton(imgFile, () async {
+                  final XFile? img = await picker.pickImage(
+                    source: ImageSource.gallery,
+                    imageQuality: 85,
+                  );
 
-                    if (img == null) {
-                      return;
-                    }
+                  if (img == null) {
+                    return;
+                  }
 
-                    setState(() {
-                      imgFile = img.path;
-                    });
-                  }),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    onSaved: (value) {
-                      description = value;
-                    },
-                    decoration: const InputDecoration(
-                        labelText: 'Description',
-                        labelStyle: TextStyle(color: Colors.black),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black))),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(40),
-                        surfaceTintColor: Colors.black,
+                  setState(() {
+                    imgFile = img.path;
+                  });
+                }),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: captionController,
+                  decoration: const InputDecoration(
+                      labelText: 'Caption..',
+                      labelStyle: TextStyle(color: Colors.black),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
                       ),
-                      onPressed: () async {
-                        // Validate will return true if the form is valid, or false if
-                        // the form is invalid.
-                        if (_formKey.currentState!.validate()) {
-                          // Process data.
-                          setState(() {
-                            _isLoading = true;
-                          });
-                          await createPost(
-                              _provider.email, imgFile, description);
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black))),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: InkWell(
+                    onTap: () async {
+                      setState(() {
+                        _isLoading = true;
+                      });
 
-                          setState(() {
-                            _isLoading = false;
-                          });
-                          widget.onPostUpload();
-                          Navigator.of(context).pop();
-                        }
-                      },
+                      await createPost(
+                          _provider.email, imgFile, captionController.text);
+
+                      widget.onPostUpload();
+                      setState(() {
+                        _isLoading = false;
+                      });
+
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 168, 168, 168),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30),
+                        ),
+                      ),
                       child: _isLoading
                           ? Container(
                               width: 24,
@@ -110,11 +99,16 @@ class _UploadModalState extends State<UploadModal> {
                                 strokeWidth: 3,
                               ),
                             )
-                          : const Text('Create'),
+                          : const Text(
+                              'Create',
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             )),
       ),
     );

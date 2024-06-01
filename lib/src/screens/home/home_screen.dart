@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       posts = [];
 
-      for (var i = fetchedPosts.length - 1; i > 0; i--) {
+      for (var i = 0; i <= fetchedPosts.length - 1; i++) {
         var post = fetchedPosts[i];
         posts.add(MoodModel.fromJson(post));
       }
@@ -72,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? const PostsScreenPlaceHolder()
                     : PageView(
                         controller: controller,
+                        reverse: true,
                         scrollDirection: Axis.vertical,
                         children: posts.map((post) {
                           return MoodPostWidget(

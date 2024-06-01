@@ -34,5 +34,5 @@ Future<void> createPost(
 }
 
 Future<List<Map<String, dynamic>>> fetchPosts() async {
-  return await supabase.from('posts').select('*');
+  return await supabase.from('posts').select('*').order('id', ascending: false);
 }
