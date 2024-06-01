@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moodpick/src/modules/home/widgets/posts_placeholder.dart';
+import 'package:moodpick/src/screens/home/widgets/posts_placeholder.dart';
 import 'package:moodpick/src/services/posts.dart';
 import 'package:moodpick/src/models/mood.dart';
-import 'package:moodpick/src/modules/home/widgets/app_bar/app_bar.dart';
-import 'package:moodpick/src/modules/home/widgets/fab.dart';
-import 'package:moodpick/src/modules/home/widgets/post_card.dart';
+import 'package:moodpick/src/screens/home/widgets/app_bar/app_bar.dart';
+import 'package:moodpick/src/screens/home/widgets/fab.dart';
+import 'package:moodpick/src/screens/home/widgets/post_card.dart';
 import 'package:moodpick/src/providers/state.dart';
 import 'package:provider/provider.dart';
 import 'package:moodpick/src/widgets/fullscreen_loading_indicator.dart';

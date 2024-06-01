@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moodpick/src/modules/home/widgets/upload_modal/upload_modal.dart';
+import 'package:moodpick/src/screens/home/widgets/upload_modal/upload_modal.dart';
 
 class FloatingActionButtonWidget extends StatefulWidget {
   void Function() onPostUpload;

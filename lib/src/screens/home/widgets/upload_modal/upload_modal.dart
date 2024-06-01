@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:moodpick/src/services/posts.dart';
-import 'package:moodpick/src/modules/home/widgets/upload_modal/pick_image_button.dart';
+import 'package:moodpick/src/screens/home/widgets/upload_modal/pick_image_button.dart';
 import 'package:moodpick/src/providers/state.dart';
 import 'package:provider/provider.dart';
 
@@ -43,10 +43,9 @@ class _UploadModalState extends State<UploadModal> {
                 children: [
                   PickImageButton(imgFile, () async {
                     final XFile? img = await picker.pickImage(
-                        source: ImageSource.gallery,
-                        imageQuality: 70,
-                        maxHeight: 800,
-                        maxWidth: double.infinity);
+                      source: ImageSource.gallery,
+                      imageQuality: 85,
+                    );
 
                     if (img == null) {
                       return;

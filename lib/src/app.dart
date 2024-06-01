@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moodpick/src/modules/authentication/auth_screen.dart';
-import 'package:moodpick/src/modules/home/home_screen.dart';
+import 'package:moodpick/src/screens/authentication/auth_screen.dart';
+import 'package:moodpick/src/screens/home/home_screen.dart';
 import 'package:moodpick/src/providers/state.dart';
 import 'package:provider/provider.dart';
 

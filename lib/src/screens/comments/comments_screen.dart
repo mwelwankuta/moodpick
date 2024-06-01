@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodpick/src/models/comment.dart';
-import 'package:moodpick/src/modules/comments/widgets/comment.dart';
-import 'package:moodpick/src/modules/comments/widgets/comments_placeholder.dart';
+import 'package:moodpick/src/screens/comments/widgets/comment.dart';
+import 'package:moodpick/src/screens/comments/widgets/comments_placeholder.dart';
 import 'package:moodpick/src/widgets/fullscreen_loading_indicator.dart';
 import 'package:moodpick/src/services/comments.dart';
 

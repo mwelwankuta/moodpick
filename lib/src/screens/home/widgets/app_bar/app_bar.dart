@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:moodpick/src/modules/home/widgets/app_bar/user_modal.dart';
+import 'package:moodpick/src/screens/home/widgets/app_bar/user_modal.dart';
 
 class AppBarWidget extends StatefulWidget {
   const AppBarWidget({super.key});

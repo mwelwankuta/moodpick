@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:moodpick/main.dart';
-import 'package:moodpick/src/modules/comments/comments_screen.dart';
+import 'package:moodpick/src/screens/comments/comments_screen.dart';
 import 'package:moodpick/src/services/likes.dart';
 
 class MoodPostWidget extends StatefulWidget {
