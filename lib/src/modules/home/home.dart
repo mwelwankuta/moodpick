@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moodpick/src/api/posts.dart';
+import 'package:moodpick/src/services/posts.dart';
 import 'package:moodpick/src/models/mood.dart';
 import 'package:moodpick/src/modules/home/widgets/app_bar/app_bar.dart';
 import 'package:moodpick/src/modules/home/widgets/fab.dart';

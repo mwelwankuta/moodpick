@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moodpick/main.dart';
-import 'package:moodpick/src/api/likes.dart';
-import 'package:supabase_auth_ui/supabase_auth_ui.dart';
+import 'package:moodpick/src/services/likes.dart';
 
 class MoodPostWidget extends StatefulWidget {
   final int id;
@@ -24,23 +23,36 @@ class MoodPostWidget extends StatefulWidget {
 }
 
 class _MoodPostWidgetState extends State<MoodPostWidget> {
+  var likesService = LikesService();
+  var currentUser = supabase.auth.currentUser?.id;
+
+  int currentLikes = 0;
+  bool isLiked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    currentLikes = widget.likes;
+    checkLikeStatus();
+  }
+
+  @override
+  void dispose() {
+    isLiked = false;
+    currentLikes = 0;
+    super.dispose();
+  }
+
+  Future<void> checkLikeStatus() async {
+    var likeStatus = await likesService.hasLikedPost(widget.id, currentUser!);
+
+    setState(() {
+      isLiked = likeStatus;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    int currentLikes = widget.likes;
-
-    final likes = supabase.channel('public:posts').onPostgresChanges(
-        event: PostgresChangeEvent.update,
-        callback: (payload) {
-          print(payload.newRecord);
-
-          final updatedPost = payload.newRecord;
-          if (updatedPost['id'] == widget.id) {
-            setState(() {
-              currentLikes = updatedPost['likes'];
-            });
-          }
-        });
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -63,10 +75,16 @@ class _MoodPostWidgetState extends State<MoodPostWidget> {
         Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           IconButton(
             onPressed: () async {
-              unlimitedHeart(widget.id, currentLikes);
+              setState(() {
+                currentLikes = isLiked ? currentLikes - 1 : currentLikes + 1;
+                isLiked = !isLiked;
+              });
+
+              await likesService.toggleLike(
+                  widget.id, widget.likes, currentUser!);
             },
-            icon: const Icon(
-              Icons.favorite_border,
+            icon: Icon(
+              isLiked == false ? Icons.favorite_border : Icons.favorite,
               size: 27,
             ),
             tooltip: 'Like',

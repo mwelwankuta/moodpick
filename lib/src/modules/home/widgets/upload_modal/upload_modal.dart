@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:moodpick/src/api/posts.dart';
+import 'package:moodpick/src/services/posts.dart';
 import 'package:moodpick/src/modules/home/widgets/upload_modal/pick_image_button.dart';
 import 'package:moodpick/src/providers/state.dart';
 import 'package:provider/provider.dart';
