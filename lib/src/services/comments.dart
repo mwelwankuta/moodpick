@@ -1,16 +1,13 @@
 import 'package:moodpick/main.dart';
-import 'package:moodpick/src/models/comment.dart';
 
 class CommentsService {
-  Future<List<CommentModel>> getCommentsForPost(int postId) async {
+  Future<List<Map<String, dynamic>>> getCommentsForPost(int postId) async {
     try {
-      var comments = await supabase
+      return await supabase
           .from('comments')
           .select()
           .eq('post_id', postId)
           .order('created_at', ascending: false);
-
-      return comments.map((comment) => CommentModel.fromJson(comment)).toList();
     } catch (e) {
       return [];
     }

@@ -1,7 +1,8 @@
 class CommentModel {
-  final String id;
+  final int id;
   final String postId;
   final String creator;
+  final String email;
   final String comment;
   final DateTime createdAt;
 
@@ -11,6 +12,7 @@ class CommentModel {
     required this.creator,
     required this.comment,
     required this.createdAt,
+    required this.email,
   });
 
   factory CommentModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class CommentModel {
       creator: json['creator'],
       comment: json['comment'],
       createdAt: DateTime.parse(json['created_at']),
+      email: json['email'],
     );
   }
 }

@@ -18,6 +18,7 @@ dependencies:
   provider: ^6.1.2
   supabase_auth_ui: ^0.4.4
   supabase_flutter: ^2.5.3
+  timeago: ^3.6.1
   uuid: ^4.4.0
 
 dev_dependencies:

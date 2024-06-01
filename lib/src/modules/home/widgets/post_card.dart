@@ -34,18 +34,24 @@ class _MoodPostWidgetState extends State<MoodPostWidget> {
   @override
   void initState() {
     super.initState();
-    currentLikes = widget.likes;
+
+    if (mounted) {
+      setState(() {
+        currentLikes = widget.likes;
+      });
+    }
+
     checkLikeStatus();
   }
 
   Future<void> checkLikeStatus() async {
     var likeStatus = await likesService.hasLikedPost(widget.id, currentUser!);
 
-    setState(() {
-      if (mounted) {
+    if (mounted) {
+      setState(() {
         isLiked = likeStatus;
-      }
-    });
+      });
+    }
   }
 
   @override
@@ -77,13 +83,18 @@ class _MoodPostWidgetState extends State<MoodPostWidget> {
                 IconButton(
                   onPressed: () async {
                     setState(() {
-                      currentLikes =
-                          isLiked ? currentLikes - 1 : currentLikes + 1;
+                      currentLikes = isLiked
+                          ? (currentLikes > 0 ? currentLikes - 1 : 0)
+                          : currentLikes + 1;
                       isLiked = !isLiked;
                     });
 
-                    await likesService.toggleLike(
+                    var likeStatus = await likesService.toggleLike(
                         widget.id, widget.likes, currentUser!);
+                    setState(() {
+                      isLiked = likeStatus['liked'];
+                      currentLikes = likeStatus['likes'];
+                    });
                   },
                   icon: Icon(
                     isLiked == false ? Icons.favorite_border : Icons.favorite,

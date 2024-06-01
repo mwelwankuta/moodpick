@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodpick/src/modules/home/widgets/posts_placeholder.dart';
 import 'package:moodpick/src/services/posts.dart';
 import 'package:moodpick/src/models/mood.dart';
 import 'package:moodpick/src/modules/home/widgets/app_bar/app_bar.dart';
@@ -6,6 +7,7 @@ import 'package:moodpick/src/modules/home/widgets/fab.dart';
 import 'package:moodpick/src/modules/home/widgets/post_card.dart';
 import 'package:moodpick/src/providers/state.dart';
 import 'package:provider/provider.dart';
+import 'package:moodpick/src/widgets/fullscreen_loading_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
   homeScreenPosts() async {
     var fetchedPosts = await fetchPosts();
 
-    setState(() {
-      if (!mounted) return;
+    if (!mounted) return;
 
+    setState(() {
       posts = [];
 
       for (var i = fetchedPosts.length - 1; i > 0; i--) {
@@ -65,21 +67,9 @@ class _HomeScreenState extends State<HomeScreen> {
               await homeScreenPosts();
             },
             child: isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.black,
-                    ),
-                  )
+                ? const FullscreenLoadingIndicator()
                 : posts.isEmpty
-                    ? const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            "Hooray! you're the first to use moodpick. get startaed by creating a post!",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      )
+                    ? const PostsScreenPlaceHolder()
                     : PageView(
                         controller: controller,
                         scrollDirection: Axis.vertical,
