@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moodpick/src/modules/authentication/landing.dart';
-import 'package:moodpick/src/modules/home/home.dart';
+import 'package:moodpick/src/modules/authentication/auth_screen.dart';
+import 'package:moodpick/src/modules/home/home_screen.dart';
 import 'package:moodpick/src/providers/state.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
           initialRoute: "/landing",
           routes: {
             "/home": (context) => const HomeScreen(),
-            "/landing": (context) => const LandingScreen(),
+            "/landing": (context) => const AuthenticationScreen(),
           },
         ),
       ),

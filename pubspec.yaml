@@ -29,6 +29,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.svg
+    - assets/comment_icon.svg
     - assets/font/inter.ttf
 
   fonts:

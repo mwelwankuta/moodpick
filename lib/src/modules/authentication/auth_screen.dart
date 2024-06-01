@@ -4,8 +4,8 @@ import 'package:moodpick/src/providers/state.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 
-class LandingScreen extends StatelessWidget {
-  const LandingScreen({super.key});
+class AuthenticationScreen extends StatelessWidget {
+  const AuthenticationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:moodpick/main.dart';
+import 'package:moodpick/src/modules/comments/comments_screen.dart';
 import 'package:moodpick/src/services/likes.dart';
 
 class MoodPostWidget extends StatefulWidget {
@@ -72,25 +74,49 @@ class _MoodPostWidgetState extends State<MoodPostWidget> {
             fit: BoxFit.cover,
           ),
         ),
-        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          IconButton(
-            onPressed: () async {
-              setState(() {
-                currentLikes = isLiked ? currentLikes - 1 : currentLikes + 1;
-                isLiked = !isLiked;
-              });
+        Row(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    setState(() {
+                      currentLikes =
+                          isLiked ? currentLikes - 1 : currentLikes + 1;
+                      isLiked = !isLiked;
+                    });
 
-              await likesService.toggleLike(
-                  widget.id, widget.likes, currentUser!);
-            },
-            icon: Icon(
-              isLiked == false ? Icons.favorite_border : Icons.favorite,
-              size: 27,
+                    await likesService.toggleLike(
+                        widget.id, widget.likes, currentUser!);
+                  },
+                  icon: Icon(
+                    isLiked == false ? Icons.favorite_border : Icons.favorite,
+                    size: 27,
+                    color: isLiked == false ? Colors.black : Colors.red,
+                  ),
+                  tooltip: 'Like',
+                ),
+                Text('${currentLikes} likes'),
+              ],
             ),
-            tooltip: 'Like',
-          ),
-          Text('${currentLikes} likes'),
-        ]),
+            IconButton(
+              onPressed: () async {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            CommentsScreen(postId: widget.id)));
+              },
+              icon: SvgPicture.asset(
+                "assets/comment_icon.svg",
+                height: 27,
+                width: 27,
+              ),
+              tooltip: 'comments',
+            ),
+          ],
+        ),
         Container(
           padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
           color: Colors.white,
