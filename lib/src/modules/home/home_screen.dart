@@ -29,7 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
     var fetchedPosts = await fetchPosts();
 
     setState(() {
+      if (!mounted) return;
+
       posts = [];
+
       for (var i = fetchedPosts.length - 1; i > 0; i--) {
         var post = fetchedPosts[i];
         posts.add(MoodModel.fromJson(post));
@@ -51,7 +54,12 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SafeArea(
                 minimum: EdgeInsets.fromLTRB(15, 40, 15, 0),
                 child: AppBarWidget())),
-        floatingActionButton: const FloatingActionButtonWidget(),
+        floatingActionButton: FloatingActionButtonWidget(
+          onPostUpload: () {
+            print('called from other page');
+            homeScreenPosts();
+          },
+        ),
         body: RefreshIndicator(
             onRefresh: () async {
               await homeScreenPosts();
@@ -62,19 +70,29 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.black,
                     ),
                   )
-                : PageView(
-                    controller: controller,
-                    scrollDirection: Axis.vertical,
-                    children: posts.map((post) {
-                      return MoodPostWidget(
-                        creator: post.creator,
-                        description: post.description,
-                        imageUrl: post.image,
-                        id: post.id,
-                        likes: post.likes,
-                      );
-                    }).toList(),
-                  )),
+                : posts.isEmpty
+                    ? const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "Hooray! you're the first to use moodpick. get startaed by creating a post!",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                    : PageView(
+                        controller: controller,
+                        scrollDirection: Axis.vertical,
+                        children: posts.map((post) {
+                          return MoodPostWidget(
+                            creator: post.creator,
+                            description: post.description,
+                            imageUrl: post.image,
+                            id: post.id,
+                            likes: post.likes,
+                          );
+                        }).toList(),
+                      )),
       );
     });
   }

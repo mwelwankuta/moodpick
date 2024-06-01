@@ -38,18 +38,13 @@ class _MoodPostWidgetState extends State<MoodPostWidget> {
     checkLikeStatus();
   }
 
-  @override
-  void dispose() {
-    isLiked = false;
-    currentLikes = 0;
-    super.dispose();
-  }
-
   Future<void> checkLikeStatus() async {
     var likeStatus = await likesService.hasLikedPost(widget.id, currentUser!);
 
     setState(() {
-      isLiked = likeStatus;
+      if (mounted) {
+        isLiked = likeStatus;
+      }
     });
   }
 

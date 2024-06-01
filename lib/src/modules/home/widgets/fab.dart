@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:moodpick/src/modules/home/widgets/upload_modal/upload_modal.dart';
 
 class FloatingActionButtonWidget extends StatefulWidget {
-  const FloatingActionButtonWidget({super.key});
+  void Function() onPostUpload;
+  FloatingActionButtonWidget({super.key, required this.onPostUpload});
 
   @override
   State<FloatingActionButtonWidget> createState() =>
@@ -23,7 +24,7 @@ class _FloatingActionButtonWidgetState
                 context: context,
                 isScrollControlled: true,
                 builder: (BuildContext context) {
-                  return const UploadModal();
+                  return UploadModal(widget.onPostUpload);
                 });
           },
           child: Container(

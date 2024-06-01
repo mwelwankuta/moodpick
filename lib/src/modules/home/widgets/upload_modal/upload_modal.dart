@@ -6,7 +6,8 @@ import 'package:moodpick/src/providers/state.dart';
 import 'package:provider/provider.dart';
 
 class UploadModal extends StatefulWidget {
-  const UploadModal({super.key});
+  final Function() onPostUpload;
+  const UploadModal(this.onPostUpload, {super.key});
 
   @override
   State<UploadModal> createState() => _UploadModalState();
@@ -96,6 +97,7 @@ class _UploadModalState extends State<UploadModal> {
                           setState(() {
                             _isLoading = false;
                           });
+                          widget.onPostUpload();
                           Navigator.of(context).pop();
                         }
                       },
