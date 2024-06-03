@@ -1,4 +1,6 @@
 # MoodPick
+![image](https://github.com/mwelwankuta/moodpick/assets/64831126/0ee9ec1e-0b1a-4b39-81a0-f2998366a0ee)
+
 
 MoodPick is a social media platform designed to help users capture and share their moments, express their feelings, and connect with friends. Whether you're sharing photos or videos, MoodPick makes it easy to keep your followers engaged and stay in touch with what's happening in their lives.
 
