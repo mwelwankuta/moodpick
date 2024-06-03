@@ -12,4 +12,11 @@ MoodPick is a social media platform designed to help users capture and share the
 - **Likes and Comments**: Engage with posts by liking and commenting on them.
 
 
-### Disclaimer: i am aware of the supabase secrets being hardcoded. but the keys are revoked
+** Disclaimer: i am aware of the supabase secrets being hardcoded. but the keys are revoked**
+
+### Future Plans
+1. Add one to one chats
+2. Following & Followers
+3. Post recommendation
+4. User profiles
+5. Share profile Links
